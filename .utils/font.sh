@@ -4,7 +4,7 @@ clear
 mount /dev/mmcblk0p1
 set -- `ls /mnt/mmcblk0p1/custom/fonts`
 
-echo "Pick font #: "
+echo "Pick font #"
 index=1
 for font in `ls /mnt/mmcblk0p1/custom/fonts/`
 do
@@ -23,8 +23,6 @@ then
 fi
 
 eval "font=\$$option"
-
-echo $font
 
 echo "Setting font: $font"
 loadfont < /mnt/mmcblk0p1/custom/fonts/$font
