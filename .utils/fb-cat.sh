@@ -70,3 +70,22 @@ if  [ -d aarch64-linux-gnu ]
 then
   find aarch64-linux-gnu/ | xargs -I "{}" sudo ln -s "{}" . 2&> /dev/null
 fi
+
+echo "
+function grab() {
+  if [[ ! \"\$1\" ]]
+  then
+    echo \"Usage: grab \<tty_number\>\"
+    echo
+    echo \"No TTY specified. Quitting.\"
+    return
+  fi
+
+  date=\`date +%Y%m%d_%H%M%S\`
+  file=/home/tc/Screenshot_"\$date".png
+  fbgrab -d /dev/fb0 -c \"\$1\" \"\$file\"
+  echo \"Screenshot saved to \$file\"
+  return
+}
+" >> /home/tc/.ashrc
+source /home/tc/.ashrc

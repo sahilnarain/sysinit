@@ -70,3 +70,18 @@ if  [ -d aarch64-linux-gnu ]
 then
   find aarch64-linux-gnu/ | xargs -I "{}" sudo ln -s "{}" . 2&> /dev/null
 fi
+
+echo "
+function show() {
+  if [[ ! \"\$1\" ]]
+  then
+    echo \"Usage: show \<filename\>\"
+    echo
+    echo \"No filename specified. Quitting.\"
+  fi
+
+  fbi \"\$1\"
+  return
+}
+" >> /home/tc/.ashrc
+source /home/tc/.ashrc
