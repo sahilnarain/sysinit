@@ -60,10 +60,16 @@ fi
 tce-load -i $TMP_DIR/kmscon.tcz
 
 cd /usr/lib/
-find aarch64-linux-gnu/ | xargs -I "{}" sudo ln -s "{}" . 2&> /dev/null
+if  [ -d aarch64-linux-gnu ]
+then
+  find aarch64-linux-gnu/ | xargs -I "{}" sudo ln -s "{}" . 2&> /dev/null
+fi
 
 cd /lib/
-find aarch64-linux-gnu/ | xargs -I "{}" sudo ln -s "{}" . 2&> /dev/null
+if  [ -d aarch64-linux-gnu ]
+then
+  find aarch64-linux-gnu/ | xargs -I "{}" sudo ln -s "{}" . 2&> /dev/null
+fi
 
 KMSCON_RUNNING=`ps aux | grep /usr/libexec/kmscon/kmscon | grep -v grep`
 if [ $? -eq 0 ]
