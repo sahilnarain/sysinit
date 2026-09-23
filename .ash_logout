@@ -1,0 +1,14 @@
+if [[ -f ~/.ash_history ]]
+then
+  rm -f ~/.ash_history
+fi
+
+if [[ -f ~/.ssh/known_hosts ]]
+then
+  rm -f ~/.ssh/known_hosts
+fi
+
+if [[ -f ~/.ssh/known_hosts.old ]]
+then
+  rm -f ~/.ssh/known_hosts.old
+fi

@@ -1,0 +1,62 @@
+# ~/.ashrc: Executed by SHells.
+#
+. /etc/init.d/tc-functions
+if [ -n "$DISPLAY" ]
+then
+	`which editor >/dev/null` && EDITOR=editor || EDITOR=vi
+else
+	EDITOR=vi
+fi
+export EDITOR
+
+# Alias definitions.
+#
+alias df='df -h'
+alias du='du -h'
+
+alias ls='ls -p'
+alias ll='ls -l'
+alias la='ls -la'
+
+# Avoid errors... use -f to skip confirmation.
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+
+alias d='dmenu_run &'
+alias ce='cd /etc/sysconfig/tcedir'
+
+alias vim=vi
+function setTerm(){
+  tty | grep -q tty
+  if [[ $? -eq 0 ]]
+  then
+    export TERM=linux
+  else
+    FBTERM_RUNNING=0
+    KMSCON_RUNNING=0
+
+    pgrep fbterm > /dev/null
+    if [[ $? -eq 0 ]]
+    then
+      FBTERM_RUNNING=1
+    fi
+
+    pgrep kmscon > /dev/null
+    if [[ $? -eq 0 ]]
+    then
+      KMSCON_RUNNING=1
+    fi
+
+    if [[ $FBTERM_RUNNING -eq 1 ]]
+    then
+      export TERM=fbterm
+    elif [[ $KMSCON_RUNNING -eq 1 ]]
+    then
+      export TERM=xterm-256color
+    else
+      export TERM=tmux-256color
+    fi
+  fi
+}
+setTerm
