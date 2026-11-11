@@ -3,11 +3,11 @@
 # tcz-get.sh <name>
 #
 # Fetches the .tcz for <name> that matches this machine's architecture from
-# this repo's GitHub releases, verifies it against the sha256 pinned in
+# this repo's GitHub releases, verifies it against the md5 pinned in
 # packages.list, and installs it with tce-load.
 #
 # Release layout: one release per app, tag "<name>", asset "<name>-<arch>.tcz".
-# The version in packages.list is informational; the sha256 is what's enforced.
+# The version in packages.list is informational; the md5 is what's enforced.
 #
 # Environment overrides:
 #   TCZ_ARCH      force an arch (aarch64 | armhf)
@@ -42,24 +42,24 @@ detect_arch() {
   esac
 }
 
-# Prints "<version> <sha256>" for the given name and arch.
+# Prints "<version> <md5>" for the given name and arch.
 lookup() {
-  while read -r m_name m_version m_arch m_sha256 rest
+  while read -r m_name m_version m_arch m_md5 rest
   do
     case "$m_name" in ''|\#*) continue ;; esac
     if [ "$m_name" = "$1" ] && [ "$m_arch" = "$2" ]
     then
-      echo "$m_version $m_sha256"
+      echo "$m_version $m_md5"
       return 0
     fi
   done < "$TCZ_MANIFEST"
   return 1
 }
 
-# Succeeds only if file $1 exists and its sha256 is $2.
+# Succeeds only if file $1 exists and its md5 is $2.
 verify() {
   [ -f "$1" ] || return 1
-  actual=`sha256sum "$1" | cut -d ' ' -f 1`
+  actual=`md5sum "$1" | cut -d ' ' -f 1`
   [ "$actual" = "$2" ]
 }
 
@@ -91,7 +91,7 @@ ARCH=`detect_arch` || die "unsupported architecture: $(uname -m)"
 ENTRY=`lookup "$NAME" "$ARCH"` || die "no $ARCH build of $NAME in $TCZ_MANIFEST yet"
 set -- $ENTRY
 VERSION=$1
-SHA256=$2
+MD5=$2
 
 FILE=$NAME-$ARCH.tcz
 DIR=$TCZ_CACHE/$ARCH
@@ -104,7 +104,7 @@ mkdir -p "$DIR" || die "cannot create $DIR"
 
 ##########
 
-if verify "$TCZ" "$SHA256"
+if verify "$TCZ" "$MD5"
 then
   echo "Using cached $FILE"
 else
@@ -112,10 +112,10 @@ else
   echo "Downloading $NAME $VERSION ($ARCH) from $URL"
   wget -O "$TCZ" "$URL" || { rm -f "$TCZ"; die "download failed: $URL"; }
 
-  if ! verify "$TCZ" "$SHA256"
+  if ! verify "$TCZ" "$MD5"
   then
     rm -f "$TCZ"
-    die "checksum mismatch for $FILE (expected $SHA256), refusing to install"
+    die "checksum mismatch for $FILE (expected $MD5), refusing to install"
   fi
 fi
 

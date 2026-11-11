@@ -48,9 +48,9 @@ fi
 
 gh release upload "$TAG" "$STAGE/$ASSET" --clobber
 
-SHA256=$(sha256sum "$STAGE/$ASSET" | cut -d ' ' -f 1)
+MD5=$(md5sum "$STAGE/$ASSET" | cut -d ' ' -f 1)
 
 echo
 echo "Uploaded $ASSET to release $TAG. Line for .utils/packages.list:"
 echo
-printf '%-9s %-8s %-8s %s\n' "$NAME" "$VERSION" "$ARCH" "$SHA256"
+printf '%-9s %-8s %-8s %s\n' "$NAME" "$VERSION" "$ARCH" "$MD5"

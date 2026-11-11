@@ -2,7 +2,7 @@
 
 "$(dirname "$0")/tcz-get.sh" kmscon || exit 1
 
-KMSCON_RUNNING=`ps aux | grep /usr/libexec/kmscon/kmscon | grep -v grep`
+KMSCON_RUNNING=`ps aux | grep /usr/bin/kmscon | grep -v grep`
 if [ $? -eq 0 ]
 then
   KMSCON_RUNNING=1
@@ -23,5 +23,5 @@ then
   echo "Nesting KMSCon can be dangerous. Exiting..."
 else
   echo "Running KMS..."
-  /usr/libexec/kmscon/kmscon --font-engine unifont --drm --hwaccel
+  /usr/bin/kmscon --font-engine unifont --drm --hwaccel
 fi

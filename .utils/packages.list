@@ -1,20 +1,20 @@
-# Packages fetched by tcz-get.sh, with pinned sha256 checksums.
+# Packages fetched by tcz-get.sh, with pinned md5 checksums.
 #
 # Each row maps to the release asset (one release per app):
 #   https://github.com/sahilnarain/sysinit/releases/download/<name>/<name>-<arch>.tcz
 #
-# version is a record of what's in that build; only sha256 is enforced.
-# Replacing a build means a new sha256 here, so Pis need a git pull afterwards.
+# version is a record of what's in that build; only md5 is enforced.
+# Replacing a build means a new md5 here, so Pis need a git pull afterwards.
 #
 # arch: aarch64 (64-bit piCore) | armhf (32-bit piCore, must be ARMv6-compatible: Pi Zero W, Pi 1, also ARMv7 boards)
 # Add rows with tools/release.sh, which prints the line to paste here.
 #
-# name    version  arch     sha256
-fbcat     0.5.1    aarch64  a7f40a1fc336c3fcda65933bc156095a88f87f74578f77167b01473bde69c943
-fbcat     0.5.1    armhf    1f69bfdb7001191040682d31fbc79f1e26e06b89d7d69a884ef239a7388e69de
-fbi       2.14.3   aarch64  945485c7e02923c09ea8e4f1aac9e974360faff96df0836b0f96b33ac43f157a
-fbi       2.14.4   armhf    b342154c4fc62f5c95d0a84d0750686721ac982393b3462dbc472e41a1f711d9
-fbterm    1.7.5    aarch64  3edce9defeb6021c388bcf9e605859acca63efe5dd3ccdd12e493c22829353c0
-fbterm    1.7.5    armhf    93d76de83a1a047f253596d97b8c2a5f16d8c61120ff834758f8063e8f7a6cc9
-kmscon    9.0.0    aarch64  c0ba544b4f3beeae5a7acc76e311493d25ae372344655485f1a73d9187f799d7
-kmscon    10.0.4.3 armhf    3b4cb1978db6efe185eaa9d678e92e1922b483fc28dcb261edc5f58a09af746b
+# name    version  arch     md5
+fbcat     0.5.1    aarch64  3b2c86135f7679a99ade90aadcf326d7
+fbcat     0.5.1    armhf    fc66efbed08c9c65ae217848c962bc5f
+fbi       2.14.3   aarch64  5116d5ee382f2343d4fec48b534cf935
+fbi       2.14.4   armhf    a96c1db29ceea30dc080324fc99ad685
+fbterm    1.7.5    aarch64  cd9e29cb1ef7ef31c1a240d2e01fac47
+fbterm    1.7.5    armhf    bc77909893b77d97ebd74a1839c6a6fb
+kmscon    9.0.0    aarch64  1b2581eca2f16453dd74d0c99651956d
+kmscon    10.0.4.3 armhf    c8840d552dd3ebbbe21fb93f89e84c6b
