@@ -60,3 +60,41 @@ function setTerm(){
   fi
 }
 setTerm
+
+# Helpers below are defined only while their extension is loaded.
+# Load one with .utils/fb-cat.sh / .utils/fb-image.sh, then: . ~/.ashrc
+
+# Screenshot of a TTY (fbcat)
+if [ -e /usr/local/tce.installed/fbcat ]
+then
+function grab(){
+  if [[ ! "$1" ]]
+  then
+    echo "Usage: grab <tty_number>"
+    echo
+    echo "No TTY specified. Quitting."
+    return 1
+  fi
+
+  date=`date +%Y%m%d_%H%M%S`
+  file=/home/tc/Screenshot_"$date".png
+  fbgrab -d /dev/fb0 -c "$1" "$file"
+  echo "Screenshot saved to $file"
+}
+fi
+
+# View an image on the framebuffer (fbi)
+if [ -e /usr/local/tce.installed/fbi ]
+then
+function show(){
+  if [[ ! "$1" ]]
+  then
+    echo "Usage: show <filename>"
+    echo
+    echo "No filename specified. Quitting."
+    return 1
+  fi
+
+  fbi "$1"
+}
+fi
